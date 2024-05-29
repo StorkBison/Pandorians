@@ -1,0 +1,42 @@
+.simplebar-track.simplebar-track {
+  &.simplebar-vertical {
+    width: 25px;
+
+    .simplebar-scrollbar {
+      &:before {
+        top: 14px;
+        bottom: 14px;
+        left: 10px;
+        right: 10px;
+        border-radius: 10px;
+        background: #8525EA;
+        transition-property: opacity, transform;
+      }
+
+      &.simplebar-visible {
+        &:before {
+          opacity: 1;
+        }
+        &.simplebar-hover {
+          &:before {
+            opacity: 1;
+            transform: scaleX(1.4);
+          }
+        }
+      }
+    }
+  }
+}
+
+.simplebar-dragging {
+  .simplebar-track.simplebar-track {
+    &.simplebar-vertical {
+      .simplebar-scrollbar {
+        &:before {
+          opacity: 1;
+          transform: scaleX(1.4);
+        }
+      }
+    }
+  }
+}

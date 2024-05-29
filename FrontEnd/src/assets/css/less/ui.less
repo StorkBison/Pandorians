@@ -1,0 +1,243 @@
+.ui-button {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  min-width: 96px;
+  font-family: 'Raleway', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: normal;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  outline: 0;
+  box-shadow: none;
+  margin: 0;
+  transition: .3s;
+  transition-property: color, background-color, border-color;
+
+  &::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+    outline: 0;
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+
+    svg {
+      opacity: .5;
+    }
+  }
+
+  .content {
+    position: relative;
+    z-index: 2;
+    transition: opacity .3s;
+  }
+
+  &.empty {
+    min-width: auto;
+  }
+
+  &.size-s {
+    height: 40px;
+    padding: 0 10px;
+    font-size: 14px;
+    line-height: 20px;
+
+    &.has-icon {
+      padding-left: 4px;
+
+      &.empty {
+        padding-right: 4px;
+      }
+    }
+  }
+
+  &.size-m {
+    height: 66px;
+    padding: 0 12px;
+    border-radius: 5px;
+    font-size: 18px;
+    font-family: 'TT Norms', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
+    line-height: 26px;
+    letter-spacing: .025em;
+
+    &.has-icon {
+      &.empty {
+        padding: 0 10px;
+      }
+    }
+  }
+
+  &.size-l {
+    height: 72px;
+    padding: 0 12px;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 26px;
+
+    &.has-icon {
+      &.empty {
+        padding: 0 10px;
+      }
+    }
+  }
+
+  &.design-primary {
+    background: #8525EA;
+    border-color: #8525EA;
+    color: #FFFFFF;
+
+    &.has-icon,
+    &.has-prefix,
+    &.has-suffix,
+    &.empty {
+      svg {
+        fill: #FFFFFF;
+      }
+    }
+
+    &:focus {
+      background: #9d4cf2;
+      border-color: #9d4cf2;
+    }
+    &:focus:not(:focus-visible) {
+      background: #8525EA;
+      border-color: #8525EA;
+    }
+    &:focus-visible {
+      background: #9d4cf2;
+      border-color: #9d4cf2;
+    }
+
+    &, &:not(:focus-visible) {
+      &:hover {
+        background: #9d4cf2;
+        border-color: #9d4cf2;
+      }
+
+      &:active,
+      &.active {
+        background: #9d4cf2;
+        border-color: #9d4cf2;
+      }
+
+      &[disabled]:not(.loading) {
+        cursor: not-allowed;
+        color: #63587C;
+        border-color: #63587C;
+        background: transparent;
+      }
+
+      &.loading {
+        background-color: #8525EA;
+        border-color: #8525EA;
+        // TODO
+      }
+    }
+  }
+
+  &.design-neutral {
+    color: #63587C;
+    border-color: #63587C;
+    background: transparent;
+
+    &.has-icon,
+    &.has-prefix,
+    &.has-suffix,
+    &.empty {
+      svg {
+        fill: #63587C;
+      }
+    }
+  }
+
+  &.loading {
+    .content {
+      opacity: 0.3;
+    }
+  }
+
+  .content {
+    display: inline-flex;
+    align-items: center;
+    opacity: 1;
+    transition: opacity .3s;
+  }
+
+  .spinner-wrapper {
+    transform: scale(0.5);
+  }
+
+  .icon-wrap {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    transition: opacity .3s;
+
+    .size-s & {
+      margin-right: 8px;
+    }
+
+    &.alone {
+      margin-right: 0;
+    }
+
+    [disabled] & {
+      > svg {
+        opacity: .5;
+      }
+    }
+  }
+
+  &.has-suffix {
+    .icon-wrap {
+      margin-right: 0;
+      margin-left: 10px;
+
+      .size-s & {
+        margin-left: 8px;
+      }
+    }
+  }
+
+  .loader-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+
+    &.loader {
+      &-enter {
+        opacity: 0;
+      }
+
+      &-enter-active {
+        opacity: 1;
+        transition: opacity .3s;
+      }
+
+      &-exit {
+        opacity: 1;
+      }
+
+      &-exit-active {
+        opacity: 0;
+        transition: opacity .3s;
+      }
+    }
+  }
+}

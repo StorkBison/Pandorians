@@ -1,0 +1,13 @@
+<svg width="138" height="138" viewBox="0 0 138 138" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="1.5" y="1.5" width="135" height="135" rx="10" stroke="url(#nft-border-gradient)" stroke-width="3"/>
+    <defs>
+        <linearGradient id="nft-border-gradient" x1="0" y1="0" x2="138" y2="138" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#B268FF"/>
+            <stop offset="0.260417" stop-color="#8525EA"/>
+            <stop offset="0.505208" stop-color="#C58DFF"/>
+            <stop offset="0.652443" stop-color="#850FFF"/>
+            <stop offset="0.765625" stop-color="#8525EA"/>
+            <stop offset="1" stop-color="#B268FF"/>
+        </linearGradient>
+    </defs>
+</svg>

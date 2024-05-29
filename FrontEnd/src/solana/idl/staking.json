@@ -1,0 +1,481 @@
+{
+  "version": "0.1.0",
+  "name": "staking",
+  "instructions": [
+    {
+      "name": "config",
+      "accounts": [
+        {
+          "name": "stakingState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "stakingWallet",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "nativeMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": "ConfigParams"
+          }
+        }
+      ]
+    },
+    {
+      "name": "fund",
+      "accounts": [
+        {
+          "name": "stakingState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "stakingWallet",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": "FundParams"
+          }
+        }
+      ]
+    },
+    {
+      "name": "init",
+      "accounts": [
+        {
+          "name": "stakingState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "escrow",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "recentBlockhash",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": "InitParams"
+          }
+        }
+      ]
+    },
+    {
+      "name": "stake",
+      "accounts": [
+        {
+          "name": "stakingState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "token",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userAuthority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": "StakeParams"
+          }
+        }
+      ]
+    },
+    {
+      "name": "claim",
+      "accounts": [
+        {
+          "name": "stakingState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "token",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "escrow",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userAuthority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "recentBlockhash",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": "ClaimParams"
+          }
+        }
+      ]
+    },
+    {
+      "name": "unstake",
+      "accounts": [
+        {
+          "name": "stakingState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "token",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userAuthority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": "UnstakeParams"
+          }
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "StakingState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "configs",
+            "type": {
+              "array": [
+                {
+                  "defined": "RarityConfig"
+                },
+                5
+              ]
+            }
+          },
+          {
+            "name": "fundFeeBasisPoints",
+            "type": "u32"
+          },
+          {
+            "name": "funded",
+            "type": "u64"
+          },
+          {
+            "name": "escrow",
+            "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TokenState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "publicKey"
+          },
+          {
+            "name": "stakedAt",
+            "type": "i64"
+          },
+          {
+            "name": "rarity",
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "ClaimParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "stakingId",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ConfigParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "configs",
+            "type": {
+              "array": [
+                {
+                  "defined": "RarityConfigParams"
+                },
+                5
+              ]
+            }
+          },
+          {
+            "name": "fundFeeBasisPoints",
+            "type": "u16"
+          },
+          {
+            "name": "stakingId",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RarityConfigParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "capacity",
+            "type": "u32"
+          },
+          {
+            "name": "speed",
+            "type": "u32"
+          },
+          {
+            "name": "supply",
+            "type": "u32"
+          }
+        ]
+      }
+    },
+    {
+      "name": "FundParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "stakingId",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "InitParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "stakingId",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "StakeParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "stakingId",
+            "type": "u16"
+          },
+          {
+            "name": "rarity",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UnstakeParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "stakingId",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RarityConfig",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "capacity",
+            "type": "u32"
+          },
+          {
+            "name": "speed",
+            "type": "u32"
+          },
+          {
+            "name": "supply",
+            "type": "u32"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidAuthority",
+      "msg": "Not a valid authority"
+    }
+  ]
+}

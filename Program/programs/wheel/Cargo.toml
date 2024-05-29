@@ -1,0 +1,26 @@
+[package]
+name = "wheel"
+version = "0.1.0"
+description = "Created with Anchor"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "wheel"
+
+[features]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+cpi = ["no-entrypoint"]
+default = []
+
+[profile.release]
+overflow-checks = true
+
+[dependencies]
+anchor-lang = "^0.26.0"
+anchor-spl = "^0.26.0"
+solana-program = "^1.13.5"
+bytemuck = "1.7.2"
+orao-solana-vrf = { version = "0.2.3", default-features = false, features = ["cpi"] }

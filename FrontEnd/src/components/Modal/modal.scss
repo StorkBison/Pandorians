@@ -1,0 +1,365 @@
+$trans: 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+$black: #000;
+
+.ui-modal-open {
+  overflow: hidden;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.4);
+
+  &.ui-modal-transition {
+    &-enter {
+      opacity: 0;
+    }
+
+    &-enter-active {
+      opacity: 1;
+      transition: opacity $trans;
+    }
+
+    &-exit {
+      opacity: 1;
+    }
+
+    &-exit-active {
+      opacity: 0;
+      transition: opacity $trans;
+    }
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  outline: 0;
+  z-index: 9999;
+  white-space: nowrap;
+  text-align: center;
+
+  &:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+  }
+
+  .ui-modal-open & {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  &.ui-modal-transition {
+    &-enter {
+      .modal-backdrop {
+        opacity: 0;
+      }
+      .modal-content {
+        opacity: 0;
+        transform: translateY(-15px) rotate(0.0001deg);
+      }
+    }
+    &-enter-active {
+      .modal-backdrop {
+        opacity: 1;
+        transition: opacity $trans;
+      }
+      .modal-content {
+        opacity: 1;
+        transform: translateY(0) rotate(0.0001deg);
+        transition: $trans;
+        transition-property: opacity, transform;
+      }
+    }
+    &-exit {
+      .modal-backdrop {
+        opacity: 1;
+      }
+      .modal-content {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    &-exit-active {
+      .modal-backdrop {
+        opacity: 0;
+        transition: opacity $trans;
+      }
+      .modal-content {
+        opacity: 0;
+        transform: scale(0.95);
+        transition: $trans;
+        transition-property: opacity, transform;
+      }
+    }
+  }
+}
+
+.modal-content {
+  position: relative;
+  vertical-align: middle;
+  box-sizing: border-box;
+  text-align: left;
+  white-space: normal;
+  z-index: 2;
+  margin: 16px;
+  max-width: 880px;
+  min-width: 540px;
+  min-height: 340px;
+  padding: 80px 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 17px;
+  background: #352168;
+  box-shadow: 0 16px 32px 0 rgba($black, 0.09);
+  will-change: transform;
+
+  @media (max-width: 572px) {
+    width: calc(100% - 32px);
+    min-width: 0;
+  }
+
+  .success-content {
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-custom-header {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+      'Helvetica Neue', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 27px;
+    margin-bottom: 12px;
+    background: linear-gradient(
+      180deg,
+      #ffffff 0%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+  }
+
+  .modal-custom-text {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+      'Helvetica Neue', sans-serif;
+    margin-bottom: 38px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    color: #b2a5ed;
+
+    strong {
+      font-weight: 600;
+      color: #ffffff;
+    }
+  }
+
+  .case_object {
+    width: 220px;
+    height: 207px;
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    box-sizing: border-box;
+    padding: 12px; // 12px 26px or 12px 20px
+    border-radius: 11px 11px 0px 0px;
+    margin: 0;
+
+    .case_image_a {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      border-radius: 12px;
+      margin-top: -52px;
+      margin-left: -50px;
+    }
+
+    .background-case {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background-repeat: repeat-x;
+    }
+
+    > * {
+      z-index: 2;
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-left: -99px;
+      margin-top: -93px;
+      width: 197px;
+      height: 182px;
+      background: url(~/public/assets/img/open_case/won-prize-inner-circles.png)
+        center center/contain no-repeat;
+
+      @media only screen and (-webkit-min-device-pixel-ratio: 2),
+        only screen and (min--moz-device-pixel-ratio: 2),
+        only screen and (-o-min-device-pixel-ratio: 2/1),
+        only screen and (min-device-pixel-ratio: 2),
+        only screen and (min-resolution: 192dpi),
+        only screen and (min-resolution: 2dppx) {
+        background-image: url(~/public/assets/img/open_case/won-prize-inner-circles@2x.png);
+      }
+    }
+  }
+
+  .group-text_case {
+    position: relative;
+    left: 0;
+    bottom: 0;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+
+  .button-open-case {
+    position: relative;
+    z-index: 2;
+    margin-top: 25px;
+    margin-bottom: 33px;
+    padding: 15px;
+    height: auto;
+    width: 220px;
+    margin-left: auto;
+    margin-right: auto;
+    background: rgba(146, 41, 255, 0.21);
+    border: 1px solid rgba(133, 37, 234, 0.37);
+    backdrop-filter: blur(43px);
+    /* Note: backdrop-filter has minimal browser support */
+
+    border-radius: 1px;
+  }
+
+  .success-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    > div {
+      position: absolute;
+      border-radius: 50%;
+      left: 50%;
+    }
+
+    .circle-1 {
+      width: 425px;
+      height: 425px;
+      top: 88px;
+      margin-left: -212px;
+      background: radial-gradient(
+        50% 50% at 50% 50%,
+        rgba(118, 104, 203, 0) 70.83%,
+        #7668cb 100%
+      );
+      opacity: 0.05;
+    }
+    .circle-2 {
+      width: 606px;
+      height: 606px;
+      top: -2px;
+      margin-left: -303px;
+      opacity: 0.1;
+      border: 1px solid #7668cb;
+    }
+    .circle-3 {
+      width: 760px;
+      height: 760px;
+      top: -86px;
+      margin-left: -380px;
+      opacity: 0.1;
+      border: 1px solid #7668cb;
+    }
+  }
+}
+
+.modal-header {
+  font-family: inherit;
+  font-size: 20px;
+  line-height: 22px;
+  font-weight: 600;
+  margin-bottom: 40px;
+  padding-right: 30px;
+  text-align: center;
+}
+
+.modal-body {
+  font-family: inherit;
+  font-size: 18px;
+  line-height: 1.67;
+}
+
+.modal-footer {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 120%;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #474b54;
+}
+
+.close-btn {
+  box-shadow: none;
+  border: none;
+  outline: 0;
+  cursor: pointer;
+  display: block;
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  padding: 1px;
+  z-index: 2;
+  background: rgba(96, 67, 170, 0.38);
+  border-radius: 4px;
+
+  &:hover {
+    .close-icon {
+      position: relative;
+      z-index: 3;
+      opacity: 0.75;
+      transform: rotate(90deg);
+    }
+  }
+
+  .close-icon {
+    display: block;
+    opacity: 0.5;
+    will-change: transform;
+    transition: transform $trans, opacity $trans;
+  }
+}
+
+.modal-text {
+  text-align: center;
+}

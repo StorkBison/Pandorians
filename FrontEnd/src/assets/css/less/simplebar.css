@@ -1,0 +1,22 @@
+@import '../../../../node_modules/simplebar-react/dist/simplebar.min.css';
+.simplebar-track.simplebar-track.simplebar-vertical {
+  width: 10px;
+}
+.simplebar-track.simplebar-track.simplebar-vertical .simplebar-scrollbar:before {
+  top: 6px;
+  bottom: 6px;
+  left: 4px;
+  right: 4px;
+  border-radius: 6px;
+  background: var(--scrollbar-bg-color, #FFFFFF);
+}
+.simplebar-track.simplebar-track.simplebar-vertical .simplebar-scrollbar.simplebar-visible:before {
+  opacity: 0.4;
+}
+.simplebar-track.simplebar-track.simplebar-vertical .simplebar-scrollbar.simplebar-visible.simplebar-hover:before {
+  opacity: 0.6;
+}
+.simplebar-dragging .simplebar-track.simplebar-track.simplebar-vertical .simplebar-scrollbar:before {
+  opacity: 0.6;
+}
+/*# sourceMappingURL=simplebar.css.map */

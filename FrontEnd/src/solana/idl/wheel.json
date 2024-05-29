@@ -1,0 +1,476 @@
+{
+  "version": "0.1.0",
+  "name": "wheel",
+  "instructions": [
+    {
+      "name": "mint",
+      "accounts": [
+        {
+          "name": "wheelState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "globalState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "wheelTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userTicketAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "escrow",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "ticketMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "userAuthority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": "MintTicketParams"
+          }
+        }
+      ]
+    },
+    {
+      "name": "spin",
+      "accounts": [
+        {
+          "name": "wheelState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "ticketMint",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userTicketAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "random",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "treasury",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "config",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "vrf",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": "SpinParams"
+          }
+        }
+      ]
+    },
+    {
+      "name": "take",
+      "accounts": [
+        {
+          "name": "wheelState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "globalState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "wheelTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "random",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "escrow",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "userAuthority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "userTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "recentBlockhash",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": "TakeParams"
+          }
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "GlobalState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "escrow",
+            "type": "publicKey"
+          },
+          {
+            "name": "owner",
+            "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "WheelState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "escrow",
+            "type": "publicKey"
+          },
+          {
+            "name": "ticketMint",
+            "type": "publicKey"
+          },
+          {
+            "name": "mintable",
+            "type": "bool"
+          },
+          {
+            "name": "price",
+            "type": "u64"
+          },
+          {
+            "name": "prizes",
+            "type": {
+              "array": [
+                {
+                  "defined": "Prize"
+                },
+                6
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "SpinRequest",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "wheelId",
+            "type": "u16"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "resultBuffer",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "result",
+            "type": "u32"
+          },
+          {
+            "name": "prize",
+            "type": {
+              "option": "u8"
+            }
+          },
+          {
+            "name": "vrf",
+            "type": "publicKey"
+          },
+          {
+            "name": "userAuthority",
+            "type": "publicKey"
+          }
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "InitParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "escrow",
+            "type": "publicKey"
+          },
+          {
+            "name": "price",
+            "type": "u64"
+          },
+          {
+            "name": "prizes",
+            "type": {
+              "array": [
+                {
+                  "defined": "PrizeParams"
+                },
+                6
+              ]
+            }
+          },
+          {
+            "name": "wheelId",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PrizeParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "cost",
+            "type": "u64"
+          },
+          {
+            "name": "escrow",
+            "type": {
+              "option": "publicKey"
+            }
+          },
+          {
+            "name": "probability",
+            "type": "f32"
+          },
+          {
+            "name": "token",
+            "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MintTicketParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u16"
+          },
+          {
+            "name": "wheelId",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "SpinParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "force",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "wheelId",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TakeParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "force",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          },
+          {
+            "name": "wheelId",
+            "type": "u16"
+          }
+        ]
+      }
+    },
+    {
+      "name": "WithdrawParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Prize",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "cost",
+            "type": "u64"
+          },
+          {
+            "name": "escrow",
+            "type": {
+              "option": "publicKey"
+            }
+          },
+          {
+            "name": "probability",
+            "type": "f32"
+          },
+          {
+            "name": "token",
+            "type": "publicKey"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidSwitchboardAccount",
+      "msg": "Not a valid Switchboard account"
+    },
+    {
+      "code": 6001,
+      "name": "InvalidVrfAccount",
+      "msg": "Invalid VRF account provided."
+    },
+    {
+      "code": 6002,
+      "name": "InvalidArguments",
+      "msg": "Bad arguments."
+    }
+  ]
+}

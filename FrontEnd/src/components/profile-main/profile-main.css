@@ -1,0 +1,17 @@
+.user-photo {
+  position: relative;
+  overflow: hidden;
+}
+.user-photo input {
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+}
+.user-photo label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.58);
+}

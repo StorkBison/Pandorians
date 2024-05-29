@@ -1,0 +1,269 @@
+{
+  "version": "0.1.1",
+  "name": "p_box",
+  "instructions": [
+    {
+      "name": "open",
+      "accounts": [
+        {
+          "name": "boxState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "keyMint",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userAuthority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "userKeyAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "random",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "treasury",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "config",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "vrf",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": "OpenParams"
+          }
+        }
+      ]
+    },
+    {
+      "name": "take",
+      "accounts": [
+        {
+          "name": "boxState",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "boxTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userAuthority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "random",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenInfo",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "tokenMintInfo",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "ownerTokenRecord",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "destinationTokenRecord",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "metadataInfo",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "edition",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenMetadataProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "splAtaProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "sysvarInstructions",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "authorizationRulesProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "authorizationRules",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": "TakeParams"
+          }
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "BoxState",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "nextId",
+            "type": "u16"
+          },
+          {
+            "name": "slots",
+            "type": {
+              "array": [
+                "u16",
+                255
+              ]
+            }
+          },
+          {
+            "name": "keyMint",
+            "type": "publicKey"
+          }
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "OpenParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "boxId",
+            "type": "u16"
+          },
+          {
+            "name": "force",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "TakeParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "boxId",
+            "type": "u16"
+          },
+          {
+            "name": "tokenId",
+            "type": "u16"
+          },
+          {
+            "name": "force",
+            "type": {
+              "array": [
+                "u8",
+                32
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidSwitchboardAccount",
+      "msg": "Not a valid Switchboard account"
+    },
+    {
+      "code": 6001,
+      "name": "InvalidVrfAccount",
+      "msg": "Invalid VRF account provided."
+    },
+    {
+      "code": 6002,
+      "name": "NoFreeSlot",
+      "msg": "There is no free slot to store NFT."
+    },
+    {
+      "code": 6003,
+      "name": "InvalidTokenIdProvided",
+      "msg": "Invalid Token Id provided."
+    }
+  ]
+}

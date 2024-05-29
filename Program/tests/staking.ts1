@@ -1,0 +1,209 @@
+import * as anchor from "@project-serum/anchor";
+import * as spl from "@solana/spl-token";
+import * as mpl from "@metaplex-foundation/mpl-token-metadata";
+import {
+  PublicKey,
+  SystemProgram,
+  SYSVAR_RECENT_BLOCKHASHES_PUBKEY,
+  SYSVAR_RENT_PUBKEY,
+} from "@solana/web3.js";
+import {
+    AnchorWallet,
+  } from "@switchboard-xyz/switchboard-v2";
+import { Program } from "@project-serum/anchor";
+import { Staking } from "../target/types/staking";
+import { BN } from "bn.js";
+import { mintElephant } from "../client/mint";
+
+describe("staking", () => {
+    // Configure the client to use the local cluster.
+    const provider = anchor.AnchorProvider.env();
+    anchor.setProvider(provider);
+
+    // Staking doesn't close, so we should increase this counter.
+    const stakingId = 2;
+
+    const program = anchor.workspace.Staking as Program<Staking>;
+    const payer = (provider.wallet as AnchorWallet).payer;
+
+    // Wheel Authority / State
+    const stakingState = anchor.utils.publicKey.findProgramAddressSync(
+      [
+        Buffer.from("STAKING"),
+        toBytesInt16(stakingId)
+      ],
+      program.programId
+    )[0];
+
+    const stakingWallet = anchor.utils.publicKey.findProgramAddressSync(
+      [
+        Buffer.from("WALLET"),
+        toBytesInt16(stakingId)
+      ],
+      program.programId
+    )[0];
+
+    let token = new PublicKey('3nW7LxHjHhwrZNT49ZrQ5FnowSjznhPc9Ayy5w83bKig');
+    let tokenAccount = new PublicKey('9TB1bTYH6Mbh9GKtjNdFm1Y8YEaMz8s4Pp9DQRdVg53g');
+    let tokenState;
+    let userWallet;
+
+    before(async () => {
+      if (token == null) {
+        let mint = await mintElephant(provider.connection, provider.wallet as anchor.Wallet, '?cap=2000');
+
+        token = mint[0];
+        tokenAccount = mint[1];
+
+        console.log(`Token: ${ token }\nToken Account: ${ tokenAccount }`);
+      }
+
+      tokenState = anchor.utils.publicKey.findProgramAddressSync(
+        [
+          token.toBuffer(),
+          toBytesInt16(stakingId)
+        ],
+        program.programId
+      )[0];
+
+      userWallet = await spl.getOrCreateAssociatedTokenAccount(
+        provider.connection,
+        payer,
+        spl.NATIVE_MINT,
+        payer.publicKey
+      );
+    });
+
+    it("Configures staking program", async () => {
+      return;
+      await program.methods.config!({
+        configs: [
+          {
+            capacity: 2000,       // 2000 $TXN = 1'332'000 lamports = 0.001332 SOL
+            speed: 1,             // how much lamports can be claimed, TODO! per hour/minutes/seconds?
+            supply: 600           // total_capacity = SUM(capacity * supply)
+          }
+        ],
+        fundFeeBasisPoints: 2000, // 20%
+        stakingId
+      })
+      .accounts({
+        stakingState,
+        stakingWallet,
+        nativeMint: spl.NATIVE_MINT,
+        payer: payer.publicKey,
+        systemProgram: SystemProgram.programId,
+        tokenProgram: spl.TOKEN_PROGRAM_ID,
+        rent: SYSVAR_RENT_PUBKEY,
+      })
+      .rpc()
+      .then((sig) => {
+        console.log(`Config Txn: ${sig}`);
+      });
+    });
+
+    it("Funds staking wallet", async () => {
+      return;
+      await program.methods.fund!({
+        amount: new BN(2_000_000),
+        stakingId
+      })
+      .accounts({
+        stakingState,
+        stakingWallet,
+        payer: payer.publicKey,
+        systemProgram: SystemProgram.programId,
+      })
+      .rpc()
+      .then((sig) => {
+        console.log(`Fund Txn: ${sig}`);
+      });
+    });
+
+    it("Initializes staking for NFT", async () => {
+      return;
+      const tokenMetadata = anchor.utils.publicKey.findProgramAddressSync(
+        [
+          Buffer.from("metadata"),
+          mpl.PROGRAM_ID.toBuffer(),
+          token.toBuffer()
+        ],
+        mpl.PROGRAM_ID
+      )[0];
+
+      await program.methods.init!({
+        stakingId
+      })
+      .accounts({
+        token,
+        tokenMetadata,
+        tokenState,
+        payer: payer.publicKey,
+        systemProgram: SystemProgram.programId,
+      })
+      .rpc()
+      .then((sig) => {
+        console.log(`Init Txn: ${sig}`);
+      });
+    });
+
+    it("Stakes item", async () => {
+      await program.methods.stake!({
+        stakingId
+      })
+      .accounts({
+        stakingState,
+        token,
+        tokenAccount,
+        tokenState,
+        userAuthority: payer.publicKey,
+        tokenProgram: spl.TOKEN_PROGRAM_ID
+      })
+      .rpc()
+      .then((sig) => {
+        console.log(`Stake Txn: ${sig}`);
+      });
+    });
+
+    it("Claims a reward", async () => {
+      await program.methods.claim!({
+        stakingId
+      })
+      .accounts({
+        stakingState,
+        stakingWallet,
+        token,
+        tokenState,
+        userAuthority: payer.publicKey,
+        userWallet: userWallet.address,
+        tokenProgram: spl.TOKEN_PROGRAM_ID
+      })
+      .rpc()
+      .then((sig) => {
+        console.log(`Claim Txn: ${sig}`);
+      });
+    });
+
+    it("Unstakes item", async () => {
+      await program.methods.unstake!({
+        stakingId
+      })
+      .accounts({
+        stakingState,
+        token,
+        tokenAccount,
+        tokenState,
+        userAuthority: payer.publicKey,
+        tokenProgram: spl.TOKEN_PROGRAM_ID
+      })
+      .rpc()
+      .then((sig) => {
+        console.log(`Unstake Txn: ${sig}`);
+      });
+    });
+
+});
+
+function toBytesInt16(num) {
+  return Buffer.from([(num & 0xff00) >> 8, num & 0x00ff]);
+}

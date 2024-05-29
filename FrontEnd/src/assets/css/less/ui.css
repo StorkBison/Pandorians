@@ -1,0 +1,169 @@
+.ui-button {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  min-width: 96px;
+  font-family: 'Raleway', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: normal;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  outline: 0;
+  box-shadow: none;
+  margin: 0;
+  transition: 0.3s;
+  transition-property: color, background-color, border-color;
+}
+.ui-button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+  outline: 0;
+}
+.ui-button[disabled] {
+  cursor: not-allowed;
+}
+.ui-button[disabled] svg {
+  opacity: 0.5;
+}
+.ui-button .content {
+  position: relative;
+  z-index: 2;
+  transition: opacity 0.3s;
+}
+.ui-button.empty {
+  min-width: auto;
+}
+.ui-button.size-s {
+  height: 40px;
+  padding: 0 10px;
+  font-size: 14px;
+  line-height: 20px;
+}
+.ui-button.size-s.has-icon {
+  padding-left: 4px;
+}
+.ui-button.size-s.has-icon.empty {
+  padding-right: 4px;
+}
+.ui-button.size-l {
+  height: 72px;
+  padding: 0 12px;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 26px;
+}
+.ui-button.size-l.has-icon.empty {
+  padding: 0 10px;
+}
+.ui-button:focus:before {
+  opacity: 0.2;
+}
+.ui-button:focus:not(:focus-visible):before {
+  opacity: 0;
+}
+.ui-button:focus-visible:before {
+  opacity: 0.2;
+}
+.ui-button:hover:before,
+.ui-button:not(:focus-visible):hover:before {
+  opacity: 0.2;
+}
+.ui-button:active:before,
+.ui-button:not(:focus-visible):active:before,
+.ui-button.active:before,
+.ui-button:not(:focus-visible).active:before {
+  opacity: 0.2;
+}
+.ui-button[disabled],
+.ui-button:not(:focus-visible)[disabled] {
+  cursor: not-allowed;
+}
+.ui-button.design-primary {
+  background: #8525EA;
+  border-color: #8525EA;
+  color: #FFFFFF;
+}
+.ui-button.design-primary.has-icon svg,
+.ui-button.design-primary.has-prefix svg,
+.ui-button.design-primary.has-suffix svg,
+.ui-button.design-primary.empty svg {
+  fill: #FFFFFF;
+}
+.ui-button.design-primary[disabled] {
+  color: #63587C;
+  border-color: #63587C;
+  background: transparent;
+}
+.ui-button.design-neutral {
+  color: #63587C;
+  border-color: #63587C;
+  background-color: transparent;
+}
+.ui-button.design-neutral.has-icon svg,
+.ui-button.design-neutral.has-prefix svg,
+.ui-button.design-neutral.has-suffix svg,
+.ui-button.design-neutral.empty svg {
+  fill: #63587C;
+}
+.ui-button.loading .content {
+  opacity: 0.3;
+}
+.ui-button .content {
+  display: inline-flex;
+  align-items: center;
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+.ui-button .icon-wrap {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  transition: opacity 0.3s;
+}
+.size-s .ui-button .icon-wrap {
+  margin-right: 8px;
+}
+.ui-button .icon-wrap.alone {
+  margin-right: 0;
+}
+[disabled] .ui-button .icon-wrap > svg {
+  opacity: 0.5;
+}
+.ui-button.has-suffix .icon-wrap {
+  margin-right: 0;
+  margin-left: 10px;
+}
+.size-s .ui-button.has-suffix .icon-wrap {
+  margin-left: 8px;
+}
+.ui-button .loader-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+.ui-button .loader-container.loader-enter {
+  opacity: 0;
+}
+.ui-button .loader-container.loader-enter-active {
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+.ui-button .loader-container.loader-exit {
+  opacity: 1;
+}
+.ui-button .loader-container.loader-exit-active {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+/*# sourceMappingURL=ui.css.map */

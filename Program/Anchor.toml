@@ -1,0 +1,22 @@
+[features]
+seeds = false
+
+[programs.devnet]
+p_box = "5TBeGZHhcuG5KDr6BBh8ckfdRB7WJksAjPv6gB29hBuK"
+staking = "3wqC2rrgQLLR5RhfPHukQYhuASp5Pvrd39WRjUV9kACD"
+wheel = "4LcKpaxJoZNzQUZ1Zcgxs3urEHYEvRAD9KZWeRZ5hRYM"
+
+[programs.localnet]
+p_box = "5TBeGZHhcuG5KDr6BBh8ckfdRB7WJksAjPv6gB29hBuK"
+staking = "3wqC2rrgQLLR5RhfPHukQYhuASp5Pvrd39WRjUV9kACD"
+wheel = "4LcKpaxJoZNzQUZ1Zcgxs3urEHYEvRAD9KZWeRZ5hRYM"
+
+[registry]
+url = "https://anchor.projectserum.com"
+
+[provider]
+cluster = "devnet"
+wallet = "/Users/perfilev/.config/solana/id.json"
+
+[scripts]
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
